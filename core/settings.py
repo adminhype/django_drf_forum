@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
 
 # Application definition
 
@@ -37,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'forum_app'
 ]
 
 MIDDLEWARE = [

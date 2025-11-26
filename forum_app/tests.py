@@ -1,5 +1,6 @@
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 
 
 from django.urls import reverse
@@ -25,8 +26,12 @@ class QuestionTests(APITestCase):
             username='testuser', password='testpass')
         self.question = Question.objects.create(
             title='Test Question', content='test content', author=self.user, category='frontend')
+        # self.client = APIClient()
+        # self.client.login(username='testuser', password='testpass')
+
+        self.token = Token.objects.create(user=self.user)
         self.client = APIClient()
-        self.client.login(username='testuser', password='testpass')
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
     def test_list_post(self):
         url = reverse('question-list')
@@ -49,5 +54,7 @@ class QuestionTests(APITestCase):
         # self.assertEqual(response.data, expected_data)
         self.assertDictEqual(response.data, expected_data)
         self.assertJSONEqual(response.content, expected_data)
-
         self.assertContains(response, 'title')
+
+        self.assertEqual(Question.objects.count(), 1)
+        self.assertEqual(Question.objects.get().author, self.user)

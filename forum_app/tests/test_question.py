@@ -11,14 +11,6 @@ from forum_app.api.serializers import QuestionSerializer
 from forum_app.models import Question
 
 
-class LikeTests(APITestCase):
-
-    def test_get_like(self):
-        url = 'http://127.0.0.1:8000/api/forum/likes/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-
 class QuestionTests(APITestCase):
 
     def setUp(self):

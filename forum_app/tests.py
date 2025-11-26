@@ -1,4 +1,4 @@
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 
@@ -25,6 +25,20 @@ class QuestionTests(APITestCase):
             username='testuser', password='testpass')
         self.question = Question.objects.create(
             title='Test Question', content='test content', author=self.user, category='frontend')
+        self.client = APIClient()
+        self.client.login(username='testuser', password='testpass')
+
+    def test_list_post(self):
+        url = reverse('question-list')
+        data = {
+            'title': 'New Question',
+            'content': 'New content',
+            'author': self.user.id,
+            'category': 'frontend'
+        }
+        # self.client.logout()
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_detail_question(self):
         url = reverse('question-detail', kwargs={'pk': self.question.id})
@@ -32,4 +46,8 @@ class QuestionTests(APITestCase):
         expected_data = QuestionSerializer(self.question).data
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, expected_data)
+        # self.assertEqual(response.data, expected_data)
+        self.assertDictEqual(response.data, expected_data)
+        self.assertJSONEqual(response.content, expected_data)
+
+        self.assertContains(response, 'title')

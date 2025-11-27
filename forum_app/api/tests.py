@@ -24,7 +24,7 @@
 #             'title': 'New Question',
 #             'content': 'New content',
 #             'author': self.user.id,
-#             'catergory': 'frontend'
+#             'category': 'frontend'
 #         }
 #         # one way to authenticate
 #         self.client.force_authenticate(user=self.user)
@@ -43,7 +43,7 @@
 #         data = {
 #             'title': 'Updated Question',
 #             'content': 'Updated content',
-#             'catergory': 'backend'
+#             'category': 'backend'
 #         }
 
 #         self.client.force_authenticate(user=self.user)
@@ -57,7 +57,7 @@
 #         data = {
 #             'title': 'Admin Updated Question',
 #             'content': 'Admin Updated content',
-#             'catergory': 'backend'
+#             'category': 'backend'
 #         }
 
 #         self.client.force_authenticate(user=self.admin)
@@ -79,7 +79,7 @@
 #         data = {
 #             'title': 'Unauthorized Update',
 #             'content': 'Should not be updated',
-#             'catergory': 'backend'
+#             'category': 'backend'
 #         }
 
 #         self.client.force_authenticate(user=User.objects.create_user(

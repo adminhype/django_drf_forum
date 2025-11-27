@@ -50,3 +50,17 @@ class QuestionTests(APITestCase):
 
         self.assertEqual(Question.objects.count(), 1)
         self.assertEqual(Question.objects.get().author, self.user)
+
+    # def test_update_question_fail(self):
+    #         url = reverse('question-detail', kwargs={'pk': self.question.id})
+    #         data = {
+    #             'title': 'Updated Title',
+    #             'content': 'Updated content',
+    #             'category': 'frontend'
+    #         }
+    #         response = self.client.put(url, data, format='json')
+
+    #         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    #         self.question.refresh_from_db()
+    #         self.assertEqual(self.question.title, 'Updated Title')

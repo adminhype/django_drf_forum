@@ -37,7 +37,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon': '10/day',
-        'user': '3/day'
+        'user': '3/day',
+        'question': '10/day'
     },
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',

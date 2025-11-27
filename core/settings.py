@@ -135,7 +135,12 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '10/day',
         'user': '3/day',
-        'question': '4/day'
+        'question': '4/day',
+        'question-post': '2/day',
+        'question-put': '2/day',
+        'question-patch': '2/day',
+        'question-delete': '1/day',
+        'question-options': '10/day',
     },
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',

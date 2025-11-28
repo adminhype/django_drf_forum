@@ -1,6 +1,7 @@
 from rest_framework import viewsets, generics, permissions
 from rest_framework.throttling import ScopedRateThrottle
 from rest_framework import filters
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -71,10 +72,26 @@ class AnswerDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrAdmin]
 
 
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+    page_query_param = 'p'
+
+
+class CustomLimitOffsetPagination(LimitOffsetPagination):
+    default_limit = 5
+    max_limit = 100
+    limit_query_param = 'limit'
+    offset_query_param = 'offset'
+
+
 class LikeViewSet(viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
     permission_classes = [IsOwnerOrAdmin]
+    # pagination_class = LargeResultsSetPagination
+    pagination_class = CustomLimitOffsetPagination
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'forum_app'
+    'forum_app',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -128,23 +129,26 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
-    ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/day',
-        'user': '100/day',
-        'question-scope': '10/day',
-        'question': '4/day',
-        'question-get': '10/day',
-        'question-post': '2/day',
-        'question-put': '2/day',
-        'question-patch': '2/day',
-        'question-delete': '1/day',
-        'question-options': '10/day',
-    },
+    # 'DEFAULT_THROTTLE_CLASSES': [
+    #     'rest_framework.throttling.AnonRateThrottle',
+    #     'rest_framework.throttling.UserRateThrottle'
+    # ],
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '10/day',
+    #     'user': '100/day',
+    #     'question-scope': '10/day',
+    #     'question': '4/day',
+    #     'question-get': '10/day',
+    #     'question-post': '2/day',
+    #     'question-put': '2/day',
+    #     'question-patch': '2/day',
+    #     'question-delete': '1/day',
+    #     'question-options': '10/day',
+    # },
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ]
 }
